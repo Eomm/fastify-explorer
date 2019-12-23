@@ -1,0 +1,41 @@
+{
+  "name": "fastify-explorer",
+  "version": "1.0.0",
+  "description": "Explore your fastify's instances",
+  "main": "index.js",
+  "scripts": {
+    "unit": "tap -J --cov test/**/*.test.js",
+    "lint": "standard",
+    "lint:fix": "standard --fix",
+    "local:mongo": "docker run -d -p 27017:27017 --rm --name demongo mongo:4",
+    "local:mongo:stop": "docker container stop demongo",
+    "test": "npm run lint && npm run unit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Eomm/fastify-explorer.git"
+  },
+  "keywords": [
+    "fastify-plugin",
+    "onRegister",
+    "fastify"
+  ],
+  "author": "Manuel Spigolon <behemoth89@gmail.com> (https://github.com/Eomm)",
+  "license": "MIT",
+  "engines": {
+    "node": ">=6"
+  },
+  "bugs": {
+    "url": "https://github.com/Eomm/fastify-explorer/issues"
+  },
+  "homepage": "https://github.com/Eomm/fastify-explorer#readme",
+  "dependencies": {
+    "fastify-plugin": "^1.6.0"
+  },
+  "devDependencies": {
+    "fastify": "^2.11.0",
+    "fastify-mongodb": "^2.0.0",
+    "standard": "^14.3.1",
+    "tap": "^12.7.0"
+  }
+}
