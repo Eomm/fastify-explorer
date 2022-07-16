@@ -1,11 +1,13 @@
 # fastify-explorer
-Explore your fastify's instances.
+Explore your fastify instances.
 
-If you understand how to use this plugin, you will archive the higher knowledge in the fastify's encapsulation mechanism ✨
+If you understand how to use this plugin, you will archive the higher knowledge in the fastify encapsulation mechanism ✨
 
-[![Build Status](https://travis-ci.com/Eomm/fastify-explorer.svg?branch=master)](https://travis-ci.com/Eomm/fastify-explorer) 
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![ci](https://github.com/Eomm/fastify-explorer/actions/workflows/ci.yml/badge.svg)](https://github.com/Eomm/fastify-explorer/actions/workflows/ci.yml)
 
+> **Note**  
+> To deep dive the fastify encapsulation, you may want to try the [fastify-overview](https://github.com/Eomm/fastify-overview) plugin as well.
 
 ## Install
 
@@ -13,7 +15,12 @@ If you understand how to use this plugin, you will archive the higher knowledge 
 npm install fastify-explorer --save-dev
 ```
 
-This plugin support Node.js >=6 and Fastify ^2.0.0
+### Compatibility
+
+| Plugin version | Fastify version |
+| ------------- |:---------------:|
+| `^1.0.0` | `^2.0.0` |
+| `^2.0.0` | `^4.0.0` |
 
 
 ## Usage
@@ -26,18 +33,18 @@ __This operation will break the encapsulation and you must be confident with the
 
 ### Use case: testing
 
-Let me show how I develop with this plugin:
+Let me show how I develop this plugin:
 
-Usually I need to read data from a DB, like mongodb, and if you want a 100% coverage, you need to
-test the `error` case that usually is archived mocking the data or even the db's driver.
+Usually, I need to read data from a DB, like mongodb, and if you want 100% coverage, you need to
+test the `error` case that usually is archived mocking the data or even the db driver.
 
 So I prefer to get the mongodb connection of my fastify server.. and close it to let it throws!
-The encapsulation hide the registered plugins, unless using this plugin 😈
+The encapsulation hides the registered plugins unless using this plugin 😈
 
-This is only an example, but you can get whatever decorator is attached to all the fastify's instances!
+This is only an example, but you can get whatever decorator is attached to all the fastify instances!
 **Read the code-comments to have a complete overview of this plugin**.
 
-Moroeve, this plugin, force you to develop your application with a solid pattern.. let's see it:
+Moroever, this plugin forces you to develop your application with a solid pattern. Let's see it:
 
 #### `application.js`: factory pattern
 
@@ -93,8 +100,8 @@ server.listen(3000, (err) => {
 
 #### Test
 
-Finally we can test our code!
-Note how our test are like our launcher.
+Finally, we can test our code!
+Note how our test is like the launcher.
 
 ```js
 const { test } = require('tap')
@@ -128,16 +135,16 @@ test('call my route and fail', t => {
 
 ## API
 
-This plugin add two decorators to the fastify instance:
+This plugin adds two decorators to the fastify instance:
 
 - `giveMe(instanceName: string[, decoratorName: string])`: return the fastify instance registered with given name in parameters `{ explorer: { name: 'routes-explorer' } }`
-- `registerPlugin(pluginFunction: function, pluginOpts: object, explorerOpts: string|object)`: register a plugin adding an encapsulation layer. Only for silly usage* 🤣
+- `registerPlugin(pluginFunction: function, pluginOpts: object, explorerOpts: string|object)`: register a plugin adding an encapsulation layer. It is only a shortcut to create new fastify contexts.
 
-You can find and example for `.giveMe` in this docs.
+You can find an example for `.giveMe` in this document.
 
 ### Why `registerPlugin`?
 
-This plugin works only when you register an encapsulated context. The fastify-plugin system breaks the encapsulation.. so this plugin wouldn't works with normal plugins!
+This plugin works only when you register an encapsulated context. The `fastify-plugin` system breaks the encapsulation.. so this plugin wouldn't work with normal plugins!
 In other words, the `onRegister` hook is called only when **new** contexts are created, and the plugins don't create new contexts!
 
 Here to you and example:
@@ -150,7 +157,7 @@ app.register(fastifyExplorer)
   })
 ```
 
-I don't like this usage because it will impact too much how you write your `application.js` file.
+I don't like this usage because it will impact too much on how you write your `application.js` file.
 
 
 ### Another important question
@@ -158,7 +165,7 @@ I don't like this usage because it will impact too much how you write your `appl
 Somebody could ask: why pass the `explorer` parameters in the route's registration and not in mongo in `application.js`?
 You should know it right now 👎🏼
 
-As explained in the `registerPlugin`'s section, it is useless write because it doesn't work:
+As explained in the `registerPlugin`'s section, it is useless writing because it doesn't work:
 
 ```js
 fastify.register(fastifyMongo, { url: config.mongoUrl }, { explorer: { name: 'mongo-code' } })
@@ -170,12 +177,12 @@ It seems tricky, but I think it is right, because I have named the routes I want
 
 ## You
 
-If you have read all this documentation, you are great and I hope you have understand better the encapsulation context and how to play with it.
+If you have read all this documentation, you are great and I hope you have understood better the encapsulation context and how to play with it.
 
 
 ## Future
 
-I'm thinking how to test complex scenarios like this one, where you want to break only the fist `findOne` call and not the second one.
+I'm thinking how to test complex scenarios like this one, where you want to break only the first `findOne` call and not the second one.
 
 ```js
 fastify.get('/', async (req, res) => {

@@ -9,7 +9,7 @@ module.exports = (fastify, opts, next) => {
         reply.send(`The doc is: ${JSON.stringify(doc)}`)
       })
       .catch(function (err) {
-        console.log({ err })
+        reply.log.error(err)
         reply.code(501).send({ ops: 'fail' })
       })
   })
