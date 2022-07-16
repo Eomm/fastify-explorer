@@ -33,7 +33,7 @@ test('Should throw when same names', t => {
 
   app.ready(err => {
     t.ok(err)
-    t.like(err.message, 'already registerd')
+    t.match(err.message, 'already registerd')
   })
 })
 
@@ -49,15 +49,15 @@ test('Should store the instances', t => {
     t.error(err)
 
     let instance = app.giveMe('one')
-    t.equals(instance.oneDecor, 'hello')
-    t.equals(instance.twoDecor, undefined)
+    t.equal(instance.oneDecor, 'hello')
+    t.equal(instance.twoDecor, undefined)
 
     instance = app.giveMe('two')
-    t.equals(instance.oneDecor, undefined)
-    t.equals(instance.twoDecor, 'hello')
+    t.equal(instance.oneDecor, undefined)
+    t.equal(instance.twoDecor, 'hello')
 
     instance = app.giveMe('not')
-    t.equals(instance, undefined)
+    t.equal(instance, undefined)
   })
 })
 
@@ -73,14 +73,14 @@ test('It NOT store the plugin instances', t => {
     t.error(err)
 
     let instance = app.giveMe('one')
-    t.equals(instance.oneDecor, 'hello')
-    t.equals(instance.twoDecor, 'hello', 'the fp plugin has added the decorator to the main instance')
+    t.equal(instance.oneDecor, 'hello')
+    t.equal(instance.twoDecor, 'hello', 'the fp plugin has added the decorator to the main instance')
 
     instance = app.giveMe('two')
-    t.equals(instance, undefined)
+    t.equal(instance, undefined)
 
     instance = app.giveMe('not')
-    t.equals(instance, undefined)
+    t.equal(instance, undefined)
   })
 })
 
@@ -96,13 +96,13 @@ test('It NOT store the instances if registered later', t => {
     t.error(err)
 
     let instance = app.giveMe('one')
-    t.equals(instance, undefined)
+    t.equal(instance, undefined)
 
     instance = app.giveMe('two')
-    t.equals(instance, undefined)
+    t.equal(instance, undefined)
 
     instance = app.giveMe('not')
-    t.equals(instance, undefined)
+    t.equal(instance, undefined)
   })
 })
 
@@ -125,7 +125,7 @@ test('Should get the mongo instance with additional context layer', t => {
     t.ok(instance)
 
     const mongo = app.giveMe('theMongo', 'mongo')
-    t.deepEquals(mongo, theInstanceWithMongo.mongo)
+    t.same(mongo, theInstanceWithMongo.mongo)
   })
 })
 
@@ -145,7 +145,7 @@ test('Should use the utility to register an explorer plugin with shortcut', t =>
     t.ok(instance)
 
     const mongo = app.giveMe('theMongo', 'mongo')
-    t.deepEquals(mongo.client, { fake: true })
+    t.same(mongo.client, { fake: true })
   })
 })
 
@@ -165,7 +165,7 @@ test('Should use the utility to register an explorer plugin', t => {
     t.ok(instance)
 
     const mongo = app.giveMe('theMongo', 'mongo')
-    t.deepEquals(mongo.client, { fake: true })
+    t.same(mongo.client, { fake: true })
   })
 })
 
@@ -181,16 +181,16 @@ test('Decorator shortcut', t => {
     t.error(err)
 
     let val = app.giveMe('one', 'oneDecor')
-    t.equals(val, 'hello')
+    t.equal(val, 'hello')
     val = app.giveMe('one', 'twoDecor')
-    t.equals(val, undefined)
+    t.equal(val, undefined)
 
     val = app.giveMe('two', 'oneDecor')
-    t.equals(val, undefined)
+    t.equal(val, undefined)
     val = app.giveMe('two', 'twoDecor')
-    t.equals(val, 'hello')
+    t.equal(val, 'hello')
 
     val = app.giveMe('not', 'notDecor')
-    t.equals(val, undefined)
+    t.equal(val, undefined)
   })
 })

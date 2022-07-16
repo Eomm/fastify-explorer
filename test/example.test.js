@@ -10,8 +10,8 @@ test('call my route', t => {
   const fastify = buildAppToTest({ logger: false })
   fastify.inject('/my-route', (err, res) => {
     t.error(err)
-    t.equals(res.statusCode, 200)
-    t.equals(res.payload, 'The doc is: null') // empty mongo :)
+    t.equal(res.statusCode, 200)
+    t.equal(res.payload, 'The doc is: null') // empty mongo :)
     fastify.close()
   })
 })
@@ -30,7 +30,7 @@ test('call my route and fail', t => {
     mongoInsideFastify.client.close(() => {
       fastify.inject('/my-route', (err, res) => {
         t.error(err)
-        t.equals(res.statusCode, 501) // this is a customized http status code
+        t.equal(res.statusCode, 501) // this is a customized http status code
         t.deepEquals(res.json(), { ops: 'fail' }) // empty mongo :)
         fastify.close(() => {})
       })
