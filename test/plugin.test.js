@@ -4,7 +4,7 @@ const t = require('tap')
 const test = t.test
 const Fastify = require('fastify')
 const fp = require('fastify-plugin')
-const fastifyMongo = require('fastify-mongodb')
+const fastifyMongo = require('@fastify/mongodb')
 const fastifyExplorer = require('../index')
 
 const plugin = (instance, opts, next) => {

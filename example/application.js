@@ -1,7 +1,7 @@
 'use strict'
 
 const Fastify = require('fastify')
-const fastifyMongo = require('fastify-mongodb')
+const fastifyMongo = require('@fastify/mongodb')
 const fastifyExplorer = require('../index')
 
 const routes = require('./my-routes')

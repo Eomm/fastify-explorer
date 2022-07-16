@@ -56,7 +56,7 @@ Note that this plugin must be the first one to be registered.
 
 ```js
 const Fastify = require('fastify')
-const fastifyMongo = require('fastify-mongodb')
+const fastifyMongo = require('@fastify/mongodb')
 const fastifyExplorer = require('fastify-explorer')
 
 const routes = require('./my-routes')
