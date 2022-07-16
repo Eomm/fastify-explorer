@@ -2,7 +2,7 @@
 
 const fp = require('fastify-plugin')
 
-module.exports = fp(function (fastify, opts, next) {
+function fastifyExplorer (fastify, opts, next) {
   const pocket = new Map()
 
   fastify.addHook('onRegister', (instance, opts) => {
@@ -37,4 +37,9 @@ module.exports = fp(function (fastify, opts, next) {
   })
 
   next()
+}
+
+module.exports = fp(fastifyExplorer, {
+  name: 'fastify-explorer',
+  fastify: '^4.x'
 })
