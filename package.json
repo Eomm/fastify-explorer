@@ -1,6 +1,6 @@
 {
   "name": "fastify-explorer",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Explore your fastify's instances",
   "main": "index.js",
   "scripts": {
