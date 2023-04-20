@@ -61,6 +61,36 @@ test('Should store the instances', t => {
   })
 })
 
+test('Should customize the option name', t => {
+  t.plan(6)
+
+  const pluginCustom = (instance, opts, next) => {
+    instance.decorate(`${opts?.custom?.name}Decor`, 'hello')
+    next()
+  }
+
+  const app = Fastify()
+  app.register(fastifyExplorer, { optionKey: 'custom' })
+  app.register(pluginCustom, { custom: { name: 'one' } })
+  app.register(pluginCustom, { custom: { name: 'two' } })
+  app.register(pluginCustom) // ignored
+
+  app.ready(err => {
+    t.error(err)
+
+    let instance = app.giveMe('one')
+    t.equal(instance.oneDecor, 'hello')
+    t.equal(instance.twoDecor, undefined)
+
+    instance = app.giveMe('two')
+    t.equal(instance.oneDecor, undefined)
+    t.equal(instance.twoDecor, 'hello')
+
+    instance = app.giveMe('not')
+    t.equal(instance, undefined)
+  })
+})
+
 test('It NOT store the plugin instances', t => {
   t.plan(5)
   const app = Fastify()
