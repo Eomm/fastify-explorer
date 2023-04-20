@@ -1,10 +1,11 @@
 # fastify-explorer
-Explore your fastify instances.
-
-If you understand how to use this plugin, you will archive the higher knowledge in the fastify encapsulation mechanism ✨
 
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 [![ci](https://github.com/Eomm/fastify-explorer/actions/workflows/ci.yml/badge.svg)](https://github.com/Eomm/fastify-explorer/actions/workflows/ci.yml)
+
+Explore your fastify instances.
+
+If you understand how to use this plugin, you will archive the higher knowledge in the fastify encapsulation mechanism ✨
 
 > **Note**  
 > To deep dive the fastify encapsulation, you may want to try the [fastify-overview](https://github.com/Eomm/fastify-overview) plugin as well.
