@@ -14,7 +14,9 @@ module.exports = function build (config, explorer) {
     fastify.register(fastifyExplorer)
   }
 
-  fastify.register(fastifyMongo, { url: 'mongodb://localhost:27017/' })
+  fastify.register(fastifyMongo, {
+    url: 'mongodb://127.0.0.1:27017/CuteDB'
+  })
   fastify.register(routes, { explorer: { name: 'routes-explorer' } })
 
   return fastify

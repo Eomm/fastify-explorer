@@ -2,9 +2,10 @@
 
 module.exports = (fastify, opts, next) => {
   fastify.get('/my-route', (req, reply) => {
-    fastify.mongo.client.db('CuteDB')
+    fastify.mongo.client
+      .db('CuteDB')
       .collection('NiceCollection')
-      .findOne({ })
+      .findOne({})
       .then(function (doc) {
         reply.send(`The doc is: ${JSON.stringify(doc)}`)
       })

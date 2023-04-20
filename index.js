@@ -3,14 +3,16 @@
 const fp = require('fastify-plugin')
 
 function fastifyExplorer (fastify, opts, next) {
+  const { optionKey = 'explorer' } = opts
+
   const pocket = new Map()
 
   fastify.addHook('onRegister', function fastifyExplorerTracker (instance, opts) {
-    if (opts.explorer && opts.explorer.name) {
-      if (pocket.has(opts.explorer.name)) {
-        throw new Error(`The instance named ${opts.explorer.name} has been already registerd`)
+    if (opts?.[optionKey]?.name) {
+      if (pocket.has(opts[optionKey].name)) {
+        throw new Error(`The instance named ${opts[optionKey].name} has been already registerd`)
       }
-      pocket.set(opts.explorer.name, instance)
+      pocket.set(opts[optionKey].name, instance)
     }
   })
 
@@ -27,7 +29,7 @@ function fastifyExplorer (fastify, opts, next) {
   fastify.decorate('registerPlugin', function mockPlugin (pluginFunc, pluginOpts, explorerOpts) {
     let expOpts = explorerOpts
     if (typeof explorerOpts === 'string') {
-      expOpts = { explorer: { name: explorerOpts } }
+      expOpts = { [optionKey]: { name: explorerOpts } }
     }
 
     this.register(function middleware (layer, opts, next) {
@@ -43,3 +45,6 @@ module.exports = fp(fastifyExplorer, {
   name: 'fastify-explorer',
   fastify: '^4.x'
 })
+
+module.exports.default = fastifyExplorer
+module.exports.fastifyExplorer = fastifyExplorer

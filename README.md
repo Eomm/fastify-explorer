@@ -13,7 +13,7 @@ If you understand how to use this plugin, you will archive the higher knowledge 
 ## Install
 
 ```
-npm install fastify-explorer --save-dev
+npm install fastify-explorer
 ```
 
 ### Compatibility
@@ -29,8 +29,26 @@ npm install fastify-explorer --save-dev
 The plugin will store a pointer to the fastify instances you are interested in, created with the `.register` function that will have the `explorer` configuration.
 __This operation will break the encapsulation and you must be confident with the plugin system.__
 
-**Note that this plugin has been developed for testing purposes.**
+If you want to understand better the Fastify plugin system, give a look to this [blog post](https://backend.cafe/the-complete-guide-to-the-fastify-plugin-system).
 
+```js
+const Fastify = require('fastify')
+const fastifyExplorer = require('fastify-explorer')
+
+const routes = require('./my-routes')
+
+const app = Fastify()
+app.register(fastifyExplorer, { optionKey: 'explorer' })
+
+app.register(routes, { explorer: { name: 'routes-explorer' } })
+```
+
+Now you can access the `routes-explorer` fastify instance with the `giveMe` function!
+See the [API](#api) section for more details.
+
+### Options
+
+- `optionKey`: the key to use to register the plugin name. Default: `explorer`
 
 ### Use case: testing
 
@@ -164,7 +182,6 @@ I don't like this usage because it will impact too much on how you write your `a
 ### Another important question
 
 Somebody could ask: why pass the `explorer` parameters in the route's registration and not in mongo in `application.js`?
-You should know it right now 👎🏼
 
 As explained in the `registerPlugin`'s section, it is useless writing because it doesn't work:
 
@@ -176,9 +193,15 @@ So, I have configured the `explorer` parameters in the routes because that code 
 It seems tricky, but I think it is right, because I have named the routes I want to break: I'm not interested to the plugins itself.
 
 
-## You
+## Conclusion
 
 If you have read all this documentation, you are great and I hope you have understood better the encapsulation context and how to play with it.
+
+Useful links:
+
+- https://backend.cafe/the-complete-guide-to-the-fastify-plugin-system
+- https://stackoverflow.com/questions/61020394/what-is-the-exact-use-of-fastify-plugin/61054534#61054534
+- https://github.com/Eomm/fastify-overview#fastify-overview
 
 
 ## Future
